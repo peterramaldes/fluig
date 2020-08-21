@@ -1,4 +1,4 @@
-package com.ficticiusclean.fluig.utils;
+package com.ficticiusclean.fluig.utils.exceptions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

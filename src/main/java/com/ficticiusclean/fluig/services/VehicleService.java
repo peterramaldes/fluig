@@ -2,8 +2,8 @@ package com.ficticiusclean.fluig.services;
 
 import com.ficticiusclean.fluig.models.Vehicle;
 import com.ficticiusclean.fluig.models.repositories.IVehicleRepository;
-import com.ficticiusclean.fluig.utils.BusinessException;
-import com.ficticiusclean.fluig.utils.RecordNotFoundException;
+import com.ficticiusclean.fluig.utils.exceptions.BusinessException;
+import com.ficticiusclean.fluig.utils.exceptions.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
