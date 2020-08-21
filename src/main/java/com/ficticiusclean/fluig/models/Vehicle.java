@@ -1,6 +1,9 @@
 package com.ficticiusclean.fluig.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -11,6 +14,7 @@ public class Vehicle {
     private Long id;
 
     @Column
+    @NotEmpty(message = "Name cannot be null")
     private String name;
 
     @Column
@@ -23,9 +27,13 @@ public class Vehicle {
     private String fabrication;
 
     @Column
+    @NotNull(message = "Avarage City cannot be null")
+    @Min(value = 0, message = "Avarage City cannot be negative")
     private Double avarageCity;
 
     @Column
+    @NotNull(message = "Avarage Highway cannot be null")
+    @Min(value = 0, message = "Average Highway cannot be negative")
     private Double avarageHighway;
 
     public Long getId() {
