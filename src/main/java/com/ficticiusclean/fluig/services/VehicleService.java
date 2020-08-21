@@ -18,7 +18,7 @@ public class VehicleService {
     private IVehicleRepository repository;
 
     @Transactional(readOnly = true)
-    public List<Vehicle> getAllVehicles() {
+    public List<Vehicle> getAll() {
         return repository.findAll();
     }
 
