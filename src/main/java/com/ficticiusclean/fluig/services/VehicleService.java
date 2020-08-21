@@ -24,13 +24,11 @@ public class VehicleService {
 
     @Transactional
     public Vehicle create(Vehicle vehicle) {
-        // TODO: fields validation
         return repository.save(vehicle);
     }
 
     @Transactional
     public Vehicle update(Vehicle vehicle) {
-        // TODO: fields validation
         Optional.ofNullable(vehicle.getId()).orElseThrow(() -> new BusinessException("Id cannot be null."));
 
         Vehicle v = repository.findById(vehicle.getId()).orElseThrow(
