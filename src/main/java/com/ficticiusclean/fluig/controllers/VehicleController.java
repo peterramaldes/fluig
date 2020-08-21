@@ -17,12 +17,23 @@ public class VehicleController {
     private VehicleService service;
 
     @GetMapping
-    public ResponseEntity<List<Vehicle>> getAllVehicles() {
+    public ResponseEntity<List<Vehicle>> getAll() {
         return new ResponseEntity<>(service.getAllVehicles(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Vehicle> createOrUpdateVehicle(@RequestBody Vehicle vehicle) {
-        return new ResponseEntity<>(service.createOrUpdateVehicle(vehicle), HttpStatus.OK);
+    public ResponseEntity<Vehicle> create(@RequestBody Vehicle vehicle) {
+        return new ResponseEntity<>(service.create(vehicle), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Vehicle> update(@RequestBody Vehicle vehicle) {
+        return new ResponseEntity<>(service.update(vehicle), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        service.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
