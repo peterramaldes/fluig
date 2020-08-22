@@ -23,10 +23,10 @@ public class RankController {
     @GetMapping
     public ResponseEntity<List<VehicleDTO>> rank(
             @RequestParam("price") BigDecimal price,
-            @RequestParam("totalCity") Double totalCity,
-            @RequestParam("totalHighway") Double totalHighway
+            @RequestParam("traveledCity") Double traveledCity,
+            @RequestParam("traveledHighway") Double traveledHighway
     ) {
-        return new ResponseEntity<>(service.rank(price, totalCity, totalHighway), HttpStatus.OK);
+        return new ResponseEntity<>(service.rank(price, traveledCity, traveledHighway), HttpStatus.OK);
     }
 
 }

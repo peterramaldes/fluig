@@ -19,18 +19,18 @@ public class RankService {
     private IVehicleRepository repository;
 
     @Transactional
-    public List<VehicleDTO> rank(BigDecimal price, Double totalCity, Double totalHighway) {
+    public List<VehicleDTO> rank(BigDecimal price, Double traveledCity, Double traveledHighway) {
         List<Vehicle> entities = repository.findAll();
         List<VehicleDTO> dtos = new ArrayList<>();
 
-        entities.forEach(v -> dtos.add(calc(v, price, totalCity, totalHighway)));
+        entities.forEach(v -> dtos.add(calc(v, price, traveledCity, traveledHighway)));
         Collections.sort(dtos);
 
         return dtos;
     }
 
-    private VehicleDTO calc(Vehicle v, BigDecimal price, Double totalCity, Double totalHighway) {
-        double fuelSpend = (totalCity / v.getAvarageCity()) + (totalHighway / v.getAvarageHighway());
+    private VehicleDTO calc(Vehicle v, BigDecimal price, Double traveledCity, Double traveledHighway) {
+        double fuelSpend = (traveledCity / v.getAvarageCity()) + (traveledHighway / v.getAvarageHighway());
         BigDecimal moneySpend = price.multiply(new BigDecimal(fuelSpend));
 
         return mapEntityToDTO(v, fuelSpend, moneySpend);
@@ -43,7 +43,7 @@ public class RankService {
         o.setBrand(i.getBrand());
         o.setFabrication(i.getFabrication());
         o.setModel(i.getModel());
-        o.setFuelSpend(fueldSpend);
+        o.setFuelSpend(round(fueldSpend));
         o.setMoneySpend(round(moneySpend, 2, true));
 
         return o;
@@ -52,5 +52,9 @@ public class RankService {
     private BigDecimal round(BigDecimal d, int scale, boolean roundUp) {
         int mode = (roundUp) ? BigDecimal.ROUND_UP : BigDecimal.ROUND_DOWN;
         return d.setScale(scale, mode);
+    }
+
+    private Double round(Double value) {
+        return Math.round(value * 100.0) / 100.0;
     }
 }
