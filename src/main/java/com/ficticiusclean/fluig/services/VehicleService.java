@@ -24,11 +24,13 @@ public class VehicleService {
 
     @Transactional
     public Vehicle create(Vehicle vehicle) {
+        validation(vehicle);
         return repository.save(vehicle);
     }
 
     @Transactional
     public Vehicle update(Vehicle vehicle) {
+        validation(vehicle);
         Optional.ofNullable(vehicle.getId()).orElseThrow(() -> new BusinessException("Id cannot be null."));
 
         Vehicle v = repository.findById(vehicle.getId()).orElseThrow(
@@ -50,6 +52,15 @@ public class VehicleService {
         repository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Vehicle id '" + id + "' does no exist"));
         repository.deleteById(id);
+    }
+
+    private void validation(Vehicle vehicle) {
+        if (vehicle.getAvarageHighway() == 0) {
+            throw new BusinessException("Avarage Highway cannot be 0");
+        }
+        if (vehicle.getAvarageCity() == 0) {
+            throw new BusinessException("Avarage City cannot be 0");
+        }
     }
 
 }
